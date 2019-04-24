@@ -20,14 +20,13 @@ class TestDPDA(object):
 
     @pytest.fixture(scope="function")
     def create_gramamr(self):
-        grammar = Grammar("dpda.txt")
+        grammar = Grammar("grammar.txt")
         return grammar
 
-    def test_set_grammar_alphabet(self, create_gramamr):
-        whitespaced__newline_word = "q4\n "
-        formatted_word = "q4"
-        whitespaced__newline_word = create_dpda.remove_whitespace_and_newline(
-            whitespaced__newline_word)
-        assert whitespaced__newline_word == formatted_word
+    def test_set_grammar_variables(self, create_gramamr):
+        variables = set(["A", "B"])
+
+        grammar_variables = create_gramamr.get_variables()
+        assert variables == grammar_variables
 
     
