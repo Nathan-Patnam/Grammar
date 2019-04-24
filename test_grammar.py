@@ -21,6 +21,11 @@ class TestDPDA(object):
         grammar_terminals = create_gramamr.get_terminals()
         assert terminals == grammar_terminals
     
+    def test_get_stack(self, create_gramamr):
+        stack = []
+        grammar_stack = create_gramamr.get_stack()
+        assert stack == grammar_stack
+    
     def test_set_state_state(self, create_gramamr):
         start_state = "A"
         grammer_start_state = create_gramamr.get_start_state()
@@ -28,9 +33,22 @@ class TestDPDA(object):
     
     def test_set_grammer_rules(self, create_gramamr):
         rules = {
-            "A": ["0A1", "B"],
+            "A": ["0A1", "B", "0A11"],
             "B":["#"]
         }
         grammer_rules = create_gramamr.get_grammer_rules()
         assert rules == grammer_rules
     
+    """
+    def test_accept_string(self, create_gramamr):
+        expression = "#"
+        will_accept = True
+        grammer_rules = create_gramamr.get_grammer_rules()
+        assert rules == grammer_rules
+    
+    def test_reject_string(self, create_gramamr):
+        expression = ""
+        will_accept = False
+        grammer_rules = create_gramamr.get_grammer_rules()
+        assert rules == grammer_rules
+    """

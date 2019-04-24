@@ -9,6 +9,7 @@ class Grammar():
         self.variables = set()
         self.terminals = set()
         self.start_state = ""
+        self.stack = []
         self.grammer_rules = {}
         self.build_grammer_from_file(file_name)
         
@@ -52,6 +53,9 @@ class Grammar():
         else:
             self.grammer_rules[variable] = [terminal]
         #going to have to be solved non-determinastically
+    
+    def run_machine(self, input):
+        print(input) 
 
     
     def remove_whitespace_and_newline(self, line):
@@ -65,6 +69,9 @@ class Grammar():
     
     def get_terminals(self):
         return self.terminals
+
+    def get_stack(self):
+        return self.stack
     
     def get_start_state(self):
         return self.start_state
