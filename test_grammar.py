@@ -74,11 +74,10 @@ class TestDPDA(object):
         assert is_combination_a_terminal == create_gramamr.is_combination_a_terminal(
             combination)
 
-    """
     def test_reject_string(self, create_gramamr):
         expression = ""
         will_expression_accept = False
 
         grammer_accept_string = create_gramamr.run_machine(expression)
         assert will_expression_accept == grammer_accept_string
-    """
+

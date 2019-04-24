@@ -1,9 +1,3 @@
-
-
-#convert grammar to pushdown automota
-
-
-
 class Grammar():
     def __init__(self, file_name):
         self.variables = set()
@@ -75,18 +69,56 @@ class Grammar():
         print(self.loop)
     def is_combination_a_terminal(self, combination):
         return combination in self.terminals    
-    def run_machine(self, input):
-        #add marker symbol to start of stack, '$' will be used to represent this
-        self.push_marker_symbol()
-        #push on start symbol
+    def run_machine(self, line):
+        self.push_marker_symbol() #$ will be used
         self.push_start_symbol()
-        #loop
+        stack_copy = self.make_deep_copy(self.stack)
+        result = self.start_machine(line, stack_copy)
+        return result
+    
+    def start_machine(self, line, stack):
+        symbol_top_of_stack = self.get_top_of_stack()
+
+        if line == "":
+            if symbol_top_of_stack in self.grammer_rules and "@" in self.grammer_rules[symbol_top_of_stack]:
+                return True
+            else:
+                return False
+        read_character = line[0]
+
+        if symbol_top_of_stack == "$":
+            return True
+
+        if symbol_top_of_stack in self.terminals:
+            copied_stack = self.make_deep_copy(stack)
+            copied_line = line
+
+            copied_stack.pop()
+            copied_line = line[1:]
+
+            self.start_machine(copied_line, copied_stack)
+
+    def make_deep_copy(self, lst):
+        new_list = []
+        for item in lst:
+            new_list.append(item)
+        return new_list
+
+
+            
+
 
         #remove marker symbol from end of stack, $ was used to represent this
 
         #accept
 
         pass
+
+    
+    def get_top_of_stack(self):
+        if len(self.stack) == 0:
+            return ""
+        return self.stack[-1]
     
 
 
