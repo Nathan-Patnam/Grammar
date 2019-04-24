@@ -6,8 +6,8 @@
 
 class Grammar():
     def __init__(self, file_name):
-        self.name = ""
         self.variables = set()
+        self.terminals = set()
         self.build_file(file_name)
         
     
@@ -18,6 +18,8 @@ class Grammar():
         for line in lines:
             if line_number == 1:
                 self.set_grammar_variables(line)
+            elif line_number == 2:
+                self.set_grammar_terminals(line)
             
             line_number += 1
 
@@ -25,7 +27,11 @@ class Grammar():
         line = self.remove_whitespace_and_newline(line)
         variables = self.convert_csv_line_to_list(line)
         self.variables = set(variables)
-    
+
+    def set_grammar_terminals(self, line):
+        line = self.remove_whitespace_and_newline(line)
+        terminals = self.convert_csv_line_to_list(line)
+        self.terminals = set(terminals)
 
     
     def remove_whitespace_and_newline(self, line):
@@ -36,3 +42,6 @@ class Grammar():
     
     def get_variables(self):
         return self.variables
+    
+    def get_terminals(self):
+        return self.terminals
