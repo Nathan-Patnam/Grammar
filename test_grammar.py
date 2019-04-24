@@ -39,16 +39,18 @@ class TestDPDA(object):
         grammer_rules = create_gramamr.get_grammer_rules()
         assert rules == grammer_rules
     
-    """
+
     def test_accept_string(self, create_gramamr):
         expression = "#"
-        will_accept = True
-        grammer_rules = create_gramamr.get_grammer_rules()
-        assert rules == grammer_rules
+        will_expression_accept = True
+
+        grammer_accept_string = create_gramamr.run_machine(expression)
+        assert will_expression_accept == grammer_accept_string
     
     def test_reject_string(self, create_gramamr):
         expression = ""
-        will_accept = False
-        grammer_rules = create_gramamr.get_grammer_rules()
-        assert rules == grammer_rules
-    """
+        will_expression_accept = False
+
+        grammer_accept_string = create_gramamr.run_machine(expression)
+        assert will_expression_accept == grammer_accept_string
+

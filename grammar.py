@@ -55,7 +55,15 @@ class Grammar():
         #going to have to be solved non-determinastically
     
     def run_machine(self, input):
-        print(input) 
+        #add start symbol to start of stack
+
+        #loop
+
+        #remove start symbol from end of stack
+
+        #accept
+
+        pass
 
     
     def remove_whitespace_and_newline(self, line):
