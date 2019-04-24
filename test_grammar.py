@@ -20,5 +20,9 @@ class TestDPDA(object):
         terminals = set(["0", "1", "#"])
         grammar_terminals = create_gramamr.get_terminals()
         assert terminals == grammar_terminals
-
+    
+    def test_set_state_state(self, create_gramamr):
+        start_state = "A"
+        grammer_start_state = create_gramamr.get_start_state()
+        assert start_state == grammer_start_state
     
