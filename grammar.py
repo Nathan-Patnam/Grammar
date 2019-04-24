@@ -10,6 +10,7 @@ class Grammar():
         self.terminals = set()
         self.start_variable = ""
         self.stack = []
+        self.loop = {"@":{}}
         self.grammer_rules = {}
         self.build_grammer_from_file(file_name)
         
@@ -24,11 +25,12 @@ class Grammar():
             elif line_number == 2:
                 self.set_grammar_terminals(line)
             elif line_number == 3:
-                self.set_grammer_start_state(line)
+                self.set_grammer_start_variable(line)
             else:
                 self.add_grammer_rule(line)
             
             line_number += 1
+        self.build_self_loop()
 
     def set_grammar_variables(self, line):
         line = self.remove_whitespace_and_newline(line)
@@ -39,7 +41,8 @@ class Grammar():
         line = self.remove_whitespace_and_newline(line)
         terminals = self.convert_csv_line_to_list(line)
         self.terminals = set(terminals)
-    def set_grammer_start_state(self, line):
+
+    def set_grammer_start_variable(self, line):
         line = self.remove_whitespace_and_newline(line)
         self.start_variable = line
     
@@ -54,13 +57,29 @@ class Grammar():
             self.grammer_rules[variable] = [terminal]
         #going to have to be solved non-determinastically
     
+    def build_self_loop(self):
+        self.add_terminals()
+        for k,v in self.grammer_rules.items():
+            for combination in v:
+                if self.is_a_single_character(combination):
+                    self.loop["@"][k] = combination
+
+                    
+    def is_a_single_character(self, line):
+        return len(line) == 1
+    def add_terminals(self):
+        for terminal in self.terminals:
+            if terminal not in self.loop:
+                self.loop[terminal] = {}
+                self.loop[terminal] = {terminal:"@"}
+        print(self.loop)
+    def is_combination_a_terminal(self, combination):
+        return combination in self.terminals    
     def run_machine(self, input):
         #add marker symbol to start of stack, '$' will be used to represent this
         self.push_marker_symbol()
-        self.push_start_symbol()
         #push on start symbol
-
-
+        self.push_start_symbol()
         #loop
 
         #remove marker symbol from end of stack, $ was used to represent this
@@ -68,6 +87,8 @@ class Grammar():
         #accept
 
         pass
+    
+
 
     def push_marker_symbol(self):
         self.stack.append("$")
@@ -95,3 +116,6 @@ class Grammar():
     
     def get_grammer_rules(self):
         return self.grammer_rules
+    
+    def get_loop(self):
+        return self.loop

@@ -1,7 +1,7 @@
-A,B
-0,1,#
-A
-A->0A1
-A->B
-A->0A11
-B->#
+S,T
+a,b
+S
+S->aTb
+S->b
+T->Ta
+T->@
