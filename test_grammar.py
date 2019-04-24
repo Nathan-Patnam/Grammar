@@ -26,3 +26,11 @@ class TestDPDA(object):
         grammer_start_state = create_gramamr.get_start_state()
         assert start_state == grammer_start_state
     
+    def test_set_grammer_rules(self, create_gramamr):
+        rules = {
+            "A": ["0A1", "B"],
+            "B":["#"]
+        }
+        grammer_rules = create_gramamr.get_grammer_rules()
+        assert rules == grammer_rules
+    

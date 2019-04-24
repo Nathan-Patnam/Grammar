@@ -9,10 +9,11 @@ class Grammar():
         self.variables = set()
         self.terminals = set()
         self.start_state = ""
-        self.build_file(file_name)
+        self.grammer_rules = {}
+        self.build_grammer_from_file(file_name)
         
     
-    def build_file(self, file_name):
+    def build_grammer_from_file(self, file_name):
         f = open(file_name, "r")
         lines = f.readlines()
         line_number = 1
@@ -23,6 +24,8 @@ class Grammar():
                 self.set_grammar_terminals(line)
             elif line_number == 3:
                 self.set_grammer_start_state(line)
+            else:
+                self.add_grammer_rule(line)
             
             line_number += 1
 
@@ -38,6 +41,17 @@ class Grammar():
     def set_grammer_start_state(self, line):
         line = self.remove_whitespace_and_newline(line)
         self.start_state = line
+    
+    def add_grammer_rule(self, line):
+        line = self.remove_whitespace_and_newline(line)
+        variable_to_terminal = line.split("->")
+        variable = variable_to_terminal[0]
+        terminal = variable_to_terminal[1]
+        if variable in self.grammer_rules:
+            self.grammer_rules[variable].append(terminal)
+        else:
+            self.grammer_rules[variable] = [terminal]
+        #going to have to be solved non-determinastically
 
     
     def remove_whitespace_and_newline(self, line):
@@ -54,3 +68,6 @@ class Grammar():
     
     def get_start_state(self):
         return self.start_state
+    
+    def get_grammer_rules(self):
+        return self.grammer_rules
