@@ -8,7 +8,7 @@ class Grammar():
     def __init__(self, file_name):
         self.variables = set()
         self.terminals = set()
-        self.start_state = ""
+        self.start_variable = ""
         self.stack = []
         self.grammer_rules = {}
         self.build_grammer_from_file(file_name)
@@ -41,7 +41,7 @@ class Grammar():
         self.terminals = set(terminals)
     def set_grammer_start_state(self, line):
         line = self.remove_whitespace_and_newline(line)
-        self.start_state = line
+        self.start_variable = line
     
     def add_grammer_rule(self, line):
         line = self.remove_whitespace_and_newline(line)
@@ -55,16 +55,25 @@ class Grammar():
         #going to have to be solved non-determinastically
     
     def run_machine(self, input):
-        #add start symbol to start of stack
+        #add marker symbol to start of stack, '$' will be used to represent this
+        self.push_marker_symbol()
+        self.push_start_symbol()
+        #push on start symbol
+
 
         #loop
 
-        #remove start symbol from end of stack
+        #remove marker symbol from end of stack, $ was used to represent this
 
         #accept
 
         pass
 
+    def push_marker_symbol(self):
+        self.stack.append("$")
+    
+    def push_start_symbol(self):
+        self.stack.append(self.start_variable)
     
     def remove_whitespace_and_newline(self, line):
         return line.strip().replace("\n", "")
@@ -81,8 +90,8 @@ class Grammar():
     def get_stack(self):
         return self.stack
     
-    def get_start_state(self):
-        return self.start_state
+    def get_start_variable(self):
+        return self.start_variable
     
     def get_grammer_rules(self):
         return self.grammer_rules

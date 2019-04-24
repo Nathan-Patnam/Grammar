@@ -28,7 +28,7 @@ class TestDPDA(object):
     
     def test_set_state_state(self, create_gramamr):
         start_state = "A"
-        grammer_start_state = create_gramamr.get_start_state()
+        grammer_start_state = create_gramamr.get_start_variable()
         assert start_state == grammer_start_state
     
     def test_set_grammer_rules(self, create_gramamr):
@@ -40,17 +40,19 @@ class TestDPDA(object):
         assert rules == grammer_rules
     
 
-    def test_accept_string(self, create_gramamr):
-        expression = "#"
-        will_expression_accept = True
+    def test_stack_contents_on_empty_string(self, create_gramamr):
+        expression = ""
+        stack  = ["$", "A"]
 
-        grammer_accept_string = create_gramamr.run_machine(expression)
-        assert will_expression_accept == grammer_accept_string
+        create_gramamr.run_machine(expression)
+        grammar_stack = create_gramamr.get_stack()
+        assert stack == grammar_stack
     
+    """
     def test_reject_string(self, create_gramamr):
         expression = ""
         will_expression_accept = False
 
         grammer_accept_string = create_gramamr.run_machine(expression)
         assert will_expression_accept == grammer_accept_string
-
+    """
